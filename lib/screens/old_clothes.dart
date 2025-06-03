@@ -152,7 +152,7 @@ class _OldClothesFormState extends State<OldClothesForm> {
               icon: Icon(Icons.camera_alt),
               label: Text('Upload Photo'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green[700],
+                backgroundColor: const Color.fromARGB(255, 185, 186, 185),
                 padding: EdgeInsets.symmetric(vertical: 14),
               ),
             ),
@@ -166,7 +166,7 @@ class _OldClothesFormState extends State<OldClothesForm> {
                 onPressed: _submitForm,
                 child: Text(
                   'Submit',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[800],

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:recycle_bazaar_consumer/screens/bank_redemption.dart';
 import 'package:recycle_bazaar_consumer/screens/old_clothes.dart';
+import 'package:recycle_bazaar_consumer/screens/pickup_subscription.dart';
+import 'package:recycle_bazaar_consumer/screens/thrift_store.dart';
+import 'package:recycle_bazaar_consumer/screens/wallet.dart';
 
 import 'book_pickup.dart';
 
@@ -10,13 +14,14 @@ class HomeDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<_DashboardItem> items = [
       _DashboardItem(title: 'Book Pickup', icon: Icons.local_shipping),
+      _DashboardItem(title: 'Pickup Subscription', icon: Icons.subscript),
+       _DashboardItem(title: 'My Wallet', icon: Icons.wallet),
+       _DashboardItem(title: 'Bank Redemption', icon: Icons.redeem),
       _DashboardItem(title: 'Old Clothes', icon: Icons.sell),
        _DashboardItem(title: 'Thrift Store', icon: Icons.storage),
       _DashboardItem(title: 'Track Order', icon: Icons.track_changes),
       _DashboardItem(title: 'My Wallet', icon: Icons.account_balance_wallet),
-      _DashboardItem(title: 'My Rewards', icon: Icons.star),
-      _DashboardItem(title: 'Profile', icon: Icons.person),
-      _DashboardItem(title: 'Settings', icon: Icons.settings),
+    
     ];
 
     return Scaffold(
@@ -44,12 +49,37 @@ class HomeDashboard extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => const BookPickupScreen()),
                     );
                   }
-                  if (item.title == 'Donate') {
+                  else if (item.title == 'Old Clothes') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => OldClothesForm()),
                     );
                   }
+                  else if (item.title == 'Pickup Subscription') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PickupSubscriptionScreen()),
+                    );
+                  }
+                  else if (item.title == 'My Wallet') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WalletScreen()),
+                    );
+                  }
+                  else if (item.title == 'Bank Redemption') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BankRedemptionScreen()),
+                    );
+                  }
+                  else if (item.title == 'Thrift Store') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ThriftStoreScreen()),
+                    );
+                  }
+                  
                 },
               child: Card(
                 elevation: 4,

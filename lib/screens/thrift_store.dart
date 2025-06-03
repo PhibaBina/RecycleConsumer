@@ -1,8 +1,7 @@
 import 'dart:io'; // For File handling
-
 import 'package:cloud_firestore/cloud_firestore.dart'; // Firebase Firestore
 import 'package:flutter/material.dart'; // Flutter UI widgets
-import 'package:image_picker/image_picker.dart'; // For image picking from gallery/camera
+// import 'package:image_picker/image_picker.dart'; // Disabled image picker import
 
 // Stateful widget for the whole Thrift Store screen
 class ThriftStoreScreen extends StatefulWidget {
@@ -24,8 +23,8 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
   final itemDescController = TextEditingController();
   final itemPriceController = TextEditingController();
 
-  File? selectedImage; // Holds the picked image file
-  final picker = ImagePicker(); // Image picker instance
+  // File? selectedImage; // Disabled image selection
+  // final picker = ImagePicker(); // Disabled image picker instance
 
   // Called when state is created
   @override
@@ -44,7 +43,8 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
     super.dispose();
   }
 
-  // Function to pick an image from gallery
+  // Function to pick an image from gallery - disabled
+  /*
   Future<void> pickImage() async {
     final picked = await picker.pickImage(source: ImageSource.gallery); // Open gallery picker
     if (picked != null) { // If user picked an image
@@ -53,21 +53,22 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
       });
     }
   }
+  */
 
   // Function to submit the new item listing
   Future<void> submitItem() async {
-    // Validate form and check if image is selected
-    if (!_formKey.currentState!.validate() || selectedImage == null) {
+    // Validate form only, image upload disabled
+    if (!_formKey.currentState!.validate()) {
       // Show error message if validation fails
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all fields and select an image')),
+        const SnackBar(content: Text('Please fill all fields')),
       );
       return; // Stop execution if validation fails
     }
 
     try {
-      // TODO: Upload selectedImage to Firebase Storage and get real image URL
-      // Currently using placeholder image URL
+      // TODO: Upload image functionality disabled
+      // Use placeholder image URL
       String imageUrl = 'https://via.placeholder.com/150';
 
       // Add item data to Firestore collection 'thrift_store_items'
@@ -85,13 +86,12 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
         const SnackBar(content: Text('Item listed successfully!')),
       );
 
-      // Clear all form fields and reset image
+      // Clear all form fields
       itemNameController.clear();
       itemDescController.clear();
       itemPriceController.clear();
-      setState(() {
-        selectedImage = null;
-      });
+      // selectedImage = null; // disabled
+
     } catch (e) {
       // Show failure message with error details
       ScaffoldMessenger.of(context).showSnackBar(
@@ -139,7 +139,7 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: 'Price',
-                prefixIcon: Icon(Icons.attach_money, color: Colors.green),
+                prefixIcon: Icon(Icons.currency_rupee, color: Colors.green), // Rupees icon
                 border: OutlineInputBorder(),
               ),
               validator: (value) {
@@ -150,11 +150,12 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
             ),
             const SizedBox(height: 12),
 
-            // Upload image label
-            Text('Upload Item Image', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: 8),
+            // Upload image label - disabled
+            // Text('Upload Item Image', style: Theme.of(context).textTheme.titleMedium),
+            // const SizedBox(height: 8),
 
-            // Image picker container with gesture detection to pick image
+            // Image picker container with gesture detection to pick image - disabled
+            /*
             GestureDetector(
               onTap: pickImage,
               child: Container(
@@ -172,6 +173,7 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
                       ),
               ),
             ),
+            */
             const SizedBox(height: 20),
 
             // Button to submit item listing
@@ -240,7 +242,7 @@ class _ThriftStoreScreenState extends State<ThriftStoreScreen>
                 ),
                 title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Text(desc, maxLines: 2, overflow: TextOverflow.ellipsis),
-                trailing: Text('\$${price.toStringAsFixed(2)}',
+                trailing: Text('₹${price.toStringAsFixed(2)}', // Rupees symbol
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
